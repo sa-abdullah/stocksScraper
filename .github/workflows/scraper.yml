@@ -1,8 +1,14 @@
+name: Daily Stock Scraper
+
+on:
+  schedule:
+    - cron: '0 17 * * *' # Runs at 17:00 UTC (6 PM Nigeria)
+  workflow_dispatch:
+
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_STEP_DEBUG: true
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -11,9 +17,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-
-      - name: Enable Debug
-        run: echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
 
       - name: Install Puppeteer Dependencies
         run: |
@@ -33,4 +36,4 @@ jobs:
       - name: Run Scraper
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        run: node scraper.js || true  # Prevent GitHub from hiding logs
+        run: node scraper.js
