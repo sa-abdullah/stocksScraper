@@ -1,0 +1,21 @@
+name: Trigger Scraper Daily
+
+on:
+  schedule:
+    - cron: '0 17 * * *'   # Runs every day at 17:00 UTC (6 PM Nigeria time)
+  workflow_dispatch:        # Allows manual trigger from GitHub UI
+
+jobs:
+  call-scraper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Render Scraper Endpoint
+        run: |
+          echo "Triggering scraper at $(date)"
+          curl -X GET "https://stocks-data-llv3.onrender.com/api/scrape" \
+          -H "Content-Type: application/json"
+
+
+
+
+
