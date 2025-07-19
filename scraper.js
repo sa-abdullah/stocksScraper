@@ -138,18 +138,12 @@ class StockScraper {
 
   async saveToMongoDB(stockData) {
     if (!stockData.length) return [];
-    const savedStocks = [];
-    for (const stockInfo of stockData) {
-      const stock = await Stock.findOneAndUpdate(
-        { symbol: stockInfo.symbol },
-        stockInfo,
-        { upsert: true, new: true, setDefaultsOnInsert: true }
-      );
-      savedStocks.push(stock);
-    }
+    
+    // Insert all stocks as new documents (keep history)
+    const savedStocks = await Stock.insertMany(stockData);
     return savedStocks;
   }
-
+  
   async closePuppeteer() {
     try {
       if (this.page) await this.page.close();
