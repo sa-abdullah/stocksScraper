@@ -2,7 +2,7 @@ name: Daily Stock Scraper
 
 on:
   schedule:
-    - cron: '0 17 * * *' # Runs at 17:00 UTC (6 PM Nigeria)
+    - cron: '0 17 * * 1-5' # Runs at 17:00 UTC (6 PM Nigeria)
   workflow_dispatch:
 
 jobs:
