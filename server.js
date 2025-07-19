@@ -34,6 +34,7 @@ const limiter = rateLimit({
     success: false,
     error: 'Too many requests from this IP, please try again later.',
   },
+  skip: (req) => req.path === '/api/scrape',
   standardHeaders: true,
   legacyHeaders: false,
 });
