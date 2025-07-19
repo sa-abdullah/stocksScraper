@@ -177,7 +177,7 @@ if (process.argv[1] === new URL(import.meta.url).pathname) {
     })
     .catch((err) => {
       console.error('🚨 Scraping failed:', err.message);
-      process.exit(1);
+      throw err;
     });
 }
 
